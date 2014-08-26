@@ -12,3 +12,5 @@
 .idea
 .vagrant
 app/logs
+/app/cache
+/src/Acme
