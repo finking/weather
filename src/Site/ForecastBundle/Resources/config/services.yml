@@ -5,3 +5,7 @@ services:
 #    site_forecast.example:
 #        class: %site_forecast.example.class%
 #        arguments: [@service_id, "plain_value", %parameter%]
+    site.weather.service:
+            class: Site\ForecastBundle\Services\WeatherService
+            arguments:
+              - @templating

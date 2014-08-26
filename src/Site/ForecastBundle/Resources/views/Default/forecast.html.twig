@@ -1,0 +1,14 @@
+{% if listTemp %}
+    <h2>Температура в городе {{ town }}</h2>
+    <table class="table table-striped">
+        <tbody>
+        {% for temp in listTemp %}
+            <tr>
+                <td> День {{loop.index }}</td>
+                <td>Температура днем: {{ temp.day }}</td>
+                <td>Температура ночью: {{ temp.night }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endif %}

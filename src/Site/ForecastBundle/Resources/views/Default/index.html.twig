@@ -1,1 +1,94 @@
-Hello {{ name }}!
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $('#send_weather').click(function (event) {
+                event.preventDefault();
+                var town    = $('#weather_townId').val();
+                var sumDays = $('#weather_duration').val();
+                if(town == ""){
+                    alert("Введите название города.");
+                    return false;
+                }
+
+                if( /[^A-Za-z]/.test(town)){
+                    alert("В названии города допускается только Латинские буквы");
+                    return false;
+                }
+                if(sumDays == ""){
+                    alert("Выберите количество дней");
+                    return false;
+                }
+
+                $.ajax ({
+                    type: "POST",
+                    url: '/weather/ajax',
+                    data: $("form").serialize(),
+                    beforeSend: function () {
+                        $('.form_weather').hide();
+                        $('#loader').show();
+                    },
+                    complete: function () {
+                        $('#loader').hide();
+                        $('.form_weather').show();
+                    },
+                    success: function(data){
+                        if (data.status == 'ok'){
+                            $('#forecast').append(data.forecast);
+                            if(data.townExist){
+                                $('#townExist').append(data.townExist);
+                            }
+                            if(data.history){
+                                $('#forecast').append(data.history);
+                            }
+                        } else {
+                            $('#forecast').append("Попробуйте другой город!");
+                        }
+                    }
+                })
+            });
+        } )
+    </script>
+    <title>Погода</title>
+</head>
+<body>
+<div id="weather" class="container">
+    <h1>Тестовое задание по прогнозу погоды</h1>
+    <form action="{{ path('weather') }}" class="form_weather" method="post">
+        <table class="table table-striped">
+            <tbody>
+            <tr>
+                <th>Введите город</th>
+                <td>{{ form_widget(form.townId) }}</td>
+                <td>{{ form_errors(form.townId) }}</td>
+            </tr>
+            <tr>
+                <th >На сколько дней нужен прогноз?</th>
+                <td >{{ form_widget(form.duration) }}</td>
+                <td >{{ form_errors(form.duration) }}</td>
+            </tr>
+            <tr>
+                <th>Введите свой комментарий</th>
+                <td>{{ form_widget(form.comment) }}</td>
+                <td>{{ form_errors(form.comment) }}</td>
+            </tr>
+            <tr>
+                <th>Введите город</th>
+                <td>{{ form_widget(form.history) }}</td>
+                <td>{{ form_errors(form.history) }}</td>
+            </tr>
+            {{ form_rest(form) }}
+            </tbody>
+        </table>
+        <button type="submit" id="send_weather">Отправить запрос</button>
+    </form>
+    <img src="{{ asset('images/loader.gif') }}" style="display:none"  id="loader">
+    <br>
+    <div id="townExist"></div>
+    <div id="forecast"></div>
+</div>
+</body>
+

@@ -4,7 +4,7 @@ namespace Site\ForecastBundle\Tests\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class DefaultControllerTest extends WebTestCase
+class WeatherControllerTest extends WebTestCase
 {
     public function testIndex()
     {

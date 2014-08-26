@@ -1,3 +1,7 @@
-site_forecast_homepage:
-    path:     /hello/{name}
-    defaults: { _controller: SiteForecastBundle:Default:index }
+weather:
+    pattern: /weather
+    defaults: { _controller: SiteForecastBundle:Weather:index}
+
+weather_ajax:
+    pattern: /weather/ajax
+    defaults: { _controller: SiteForecastBundle:Weather:getWeather}
