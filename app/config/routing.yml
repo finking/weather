@@ -1,0 +1,4 @@
+site_forecast:
+    resource: "@SiteForecastBundle/Resources/config/routing.yml"
+    prefix:   /
+

@@ -1,0 +1,7 @@
+parameters:
+#    site_forecast.example.class: Site\ForecastBundle\Example
+
+services:
+#    site_forecast.example:
+#        class: %site_forecast.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

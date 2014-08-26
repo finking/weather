@@ -1,0 +1,3 @@
+site_forecast_homepage:
+    path:     /hello/{name}
+    defaults: { _controller: SiteForecastBundle:Default:index }
